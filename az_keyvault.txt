@@ -1,0 +1,7 @@
+az group create --name "tfstate" --location "EastUS"
+az keyvault create --name "akv2510" --resource-group "tfstate" --location "EastUS"
+# az keyvault secret set --vault-name "terraform2510" --name "terraform-backend-key" --value "$ACCOUNT_KEY"
+az keyvault secret set --vault-name "akv2510" --name "terraform-backend-key" --value $ACCOUNT_KEY
+az keyvault secret show --name "terraform-backend-key" --vault-name "akv2510" --query "value"
+export ARM_ACCESS_KEY=$(az keyvault secret show --name terraform-backend-key --vault-name 'akv2510' --query value -o tsv)
+
